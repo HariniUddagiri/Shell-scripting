@@ -23,7 +23,7 @@ then
 dnf install mysql -y &>>$Logfilename
 repeat $? "Installing mysql"
 else
-echo -e "Mysql already $G installed" &>>$Logfilename
+echo -e "Mysql already $G installed" 
 fi
 
 dnf list installed git &>>$Logfilename
