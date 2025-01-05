@@ -15,23 +15,7 @@ timestamp=$(date +%Y-%m-%d-%H-%M-%S)
 logfile=$(echo $0 | cut -d "." -f1)
 Logfilename="$logfolder/$logfile-$timestamp.log"
 
-echo "script started excecuting at $timestamp" &>>$Logfilename
-
-Root_access
-
-for package in $@
-do
-dnf list installed $package &>>$Logfilename
-if [ $? -ne 0 ]
-then
-dnf install $package -y &>>$Logfilename
-repeat $? "Installing $package"
-else
-echo -e "$package already $G installed" 
-fi
-done
-
-Root_access(){
+Check() {
     if [ $USER -ne 0 ]
     then
     echo -e "Error:$R Root access is needed"
@@ -51,4 +35,19 @@ fi
 }
 
 
+echo "script started excecuting at $timestamp" &>>$Logfilename
+
+Check()
+
+for package in $@
+do
+dnf list installed $package &>>$Logfilename
+if [ $? -ne 0 ]
+then
+dnf install $package -y &>>$Logfilename
+repeat $? "Installing $package"
+else
+echo -e "$package already $G installed" 
+fi
+done
 
