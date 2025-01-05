@@ -5,6 +5,7 @@ USERID=$(id -u)
 if [ $USERID -ne 0 ]
 then 
 echo "sudo access is needed"
+exit 1
 fi
 
 dnf list installed mysql
