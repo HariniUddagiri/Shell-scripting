@@ -17,7 +17,7 @@ Logfilename="$logfolder/$logfile-$timestamp.log"
 
 echo "script started excecuting at $timestamp" &>>$Logfilename
 
-Root_access()
+Root_access
 
 for package in $@
 do
