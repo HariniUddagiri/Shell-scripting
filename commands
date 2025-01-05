@@ -3,4 +3,4 @@ remote: Please see https://docs.github.com/get-started/getting-started-with-git/
 fatal: Authentication failed for 'https://github.com/HariniUddagiri/Shell-scripting.git/'
 
 Use the below command for the above error:-
---git remote set-url origin https://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@github.com/HariniUddagiri/Shell-scripting
+git remote set-url origin https://generalaccesstoken@github.com/username/repo
