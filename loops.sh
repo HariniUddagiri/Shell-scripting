@@ -15,6 +15,14 @@ timestamp=$(date +%Y-%m-%d-%H-%M-%S)
 logfile=$(echo $0 | cut -d "." -f1)
 Logfilename="$logfolder/$logfile-$timestamp.log"
 
+Check() {
+    if [ $1 -ne 0 ]
+    then
+    echo -e "Error:$R Root access is needed"
+    exit 1
+    fi
+}
+
 
 repeat() {
     if [ $1 -ne 0 ]
@@ -29,12 +37,8 @@ fi
 
 echo "script started excecuting at $timestamp" &>>$Logfilename
 
-if [ $USER -ne 0 ]
-    then
-    echo -e "Error:$R Root access is needed"
-    exit 1
-    fi
 
+Check $USER
 
 
 for package in $@
