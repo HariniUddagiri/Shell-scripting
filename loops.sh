@@ -31,6 +31,14 @@ echo -e "$package already $G installed"
 fi
 done
 
+Root_access(){
+    if [ $USER -ne 0 ]
+    then
+    echo -e "Error:$R Root access is needed"
+    exit 1
+    fi
+
+}
 
 repeat() {
     if [ $1 -ne 0 ]
@@ -42,12 +50,5 @@ echo -e "$2..$G success"
 fi
 }
 
-Root_access(){
-    if [ $USER -ne 0 ]
-    then
-    echo -e "Error:$R Root access is needed"
-    exit 1
-    fi
 
-}
 
