@@ -27,7 +27,7 @@ then
 dnf install git -y
 repeat $? "$Y Installing git"
 else
-echo "$G git already installed"
+echo "git already..$G installed"
 fi
 
 repeat() {
