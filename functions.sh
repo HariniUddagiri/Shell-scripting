@@ -33,9 +33,9 @@ fi
 repeat() {
     if [ $1 -ne 0 ]
 then
-echo "$2..$R failure"
+echo "$2..$Rfailure"
 exit 1
 else
-echo "$2..$G success"
+echo "$2..$Gsuccess"
 fi
 }
