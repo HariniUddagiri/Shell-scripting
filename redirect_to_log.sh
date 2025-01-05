@@ -10,29 +10,29 @@ timestamp=$(date +%Y-%m-%d-%H-%M-%S)
 logfile=$(echo $0 | cut -d "." -f1)
 Logfilename="$logfolder/$logfile-$timestamp.log"
 
-echo "script started excecuting at $timestamp" &>>Logfilename
+echo "script started excecuting at $timestamp" &>>$Logfilename
 if [ $USER -ne 0 ]
 then
 echo -e "Error:$R Root access is needed"
 exit 1
 fi
 
-dnf list installed mysql &>>Logfilename
+dnf list installed mysql &>>$Logfilename
 if [ $? -ne 0 ]
 then
-dnf install mysql -y &>>Logfilename
+dnf install mysql -y &>>$Logfilename
 repeat $? "Installing mysql"
 else
-echo -e "Mysql already $G installed" &>>Logfilename
+echo -e "Mysql already $G installed" &>>$Logfilename
 fi
 
-dnf list installed git &>>Logfilename
+dnf list installed git &>>$Logfilename
 if [ $? -ne 0 ]
 then
 dnf install git -y
 repeat $? "Installing git" 
 else
-echo -e "git already..$G installed" &>>Logfilename
+echo -e "git already..$G installed" &>>$Logfilename
 fi
 
 repeat() {
