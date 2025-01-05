@@ -7,7 +7,7 @@ G="\e[32m"
 Y="\e[33m"
 logfolder="/var/log/shellscript-logs"
 timestamp=$(date +%Y-%m-%d-%H-%M-%S)
-logfile=$(echo $0 | -d "." -f1)
+logfile=$(echo $0 | cut -d "." -f1)
 Logfilename="$logfolder/$logfile-$timestamp.log"
 
 echo "script started excecuting at $timestamp" &>>Logfilename
