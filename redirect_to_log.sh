@@ -29,10 +29,10 @@ fi
 dnf list installed git &>>$Logfilename
 if [ $? -ne 0 ]
 then
-dnf install git -y
+dnf install git -y &>>$Logfilename
 repeat $? "Installing git" 
 else
-echo -e "git already..$G installed" &>>$Logfilename
+echo -e "git already..$G installed" 
 fi
 
 repeat() {
