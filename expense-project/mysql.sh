@@ -49,10 +49,10 @@ dnf install mysql-server -y &>>$Logfilename
 Repeat $? "Installing mysql" 
 
 
-systemctl enable mysqld 
+systemctl enable mysqld &>>$Logfilename
 Repeat $? "Enabling sql server"
 
-systemctl restart mysqld 
+systemctl restart mysqld &>>$Logfilename
 Repeat $? "Starting sql server"
 
 mysql -h mysql.daws82.store -u root -pExpenseApp@1 -e 'show databases;' &>>$Logfilename
@@ -63,7 +63,7 @@ then
     mysql_secure_installation --set-root-pass ExpenseApp@1
     Repeat $? "Setting Root Password"
 else
-    echo -e "MySQL Root password already setup ... $Y SKIPPING $N"
+    echo -e "MySQL Root password already setup ... $Y SKIPPING $N" &>>$Logfilename
 fi
 
 
