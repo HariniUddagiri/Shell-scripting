@@ -63,7 +63,6 @@ Repeat $? "Downloading backend code"
 cd /app
 rm -rf /app/*
 
-
 unzip /tmp/backend.zip &>>$Logfilename
 Repeat $? "unzipping the code"
 
