@@ -29,8 +29,8 @@ Repeat (){
     if [ $1 -ne 0 ]
     then
     echo -e "$2..$R failure" 
-    else
     exit 1
+    else
     echo -e "$2..$G success" 
     fi
 
@@ -49,10 +49,10 @@ dnf install mysql-server -y &>>$Logfilename
 Repeat $? "Installing mysql" 
 
 
-systemctl enable mysqld &>>$Logfilename
+systemctl enable mysqld 
 Repeat $? "Enabling sql server"
 
-systemctl restart mysqld &>>$Logfilename
+systemctl restart mysqld 
 Repeat $? "Starting sql server"
 
 mysql -h mysql.daws82.store -u root -pExpenseApp@1 -e 'show databases;' &>>$Logfilename
