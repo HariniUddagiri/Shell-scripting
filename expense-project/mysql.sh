@@ -52,7 +52,7 @@ Repeat $? "Installing mysql"
 systemctl enable mysqld &>>$Logfilename
 Repeat $? "Enabling sql server"
 
-systemctl start mysqld &>>$Logfilename
+systemctl restart mysqld &>>$Logfilename
 Repeat $? "Starting sql server"
 
 mysql -h mysql.daws82.store -u root -pExpenseApp@1 -e 'show databases;' &>>$Logfilename
