@@ -10,7 +10,7 @@ timestamp=$(date +%Y-%m-%d-%H-%M-%S)
 logfile=$(echo $0 | cut -d "." -f1)
 Logfilename="$logfolder/$logfile-$timestamp.log"
 
-SOURCE_DIR ="/home/ec2-user/app-logs"
+SOURCE_DIR ="/home/ec2-user/Shell-scripting/expense-project/var/log/expense-logs"
 
 mkdir -p $logfolder
 
@@ -22,4 +22,9 @@ exit 1
 fi
 
 files_to_delete=$(find $SOURCE_DIR -name "*.log" -mtime +14)
-echo "Deleting files older than 14 days :" $files_to_delete
+echo "Deleting files older than 14 days : $files_to_delete"
+
+while read -r filepath
+do
+echo "Deleting file: $filepath"
+done<<$files_to_delete
