@@ -6,6 +6,8 @@ R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
 
+
+
 Logfolder="var/log/expense-logs"
 timestamp=$(date +%Y-%m-%d-%H-%M-%S)
 Logfile=$(echo $0 | cut -d "." -f1)
@@ -33,7 +35,10 @@ Repeat (){
 
 }
 
+mkdir -p $Logfolder
 echo "Script started executing at $timestamp" &>>$Logfilename
+
+
 
 Check $USER
 
