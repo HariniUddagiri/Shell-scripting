@@ -12,6 +12,8 @@ Logfilename="$logfolder/$logfile-$timestamp.log"
 
 SOURCE_DIR ="/home/ec2-user/Shell-scripting/expense-project/var/log/expense-logs"
 
+mkdir -p $logfolder
+
 echo "script started excecuting at $timestamp" &>>$Logfilename
 if [ $USER -ne 0 ]
 then
