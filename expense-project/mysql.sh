@@ -25,7 +25,7 @@ Check(){
 
 
 Repeat (){
-    dnf install mysql &>>$Logfilename
+    dnf install $package -y &>>$Logfilename
     if [ $1 -ne 0 ]
     then
     echo -e "$2..$R failure" 
