@@ -55,7 +55,7 @@ Repeat $? "Enabling sql server"
 systemctl restart mysqld &>>$Logfilename
 Repeat $? "Starting sql server"
 
-mysql -h mysql.daws82.store -u root -pExpenseApp@1 -e 'show databases;' &>>$Logfilename
+mysql -h mysq.daws82s.store -u root -pExpenseApp@1 -e 'show databases;' &>>$Logfilename
 
 if [ $? -ne 0 ]
 then
