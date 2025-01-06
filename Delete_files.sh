@@ -21,11 +21,14 @@ echo -e "Error:$R Root access is needed"
 exit 1
 fi
 
-files_to_delete=$(find $SOURCE_DIR -name "*.log" -mtime +14)
-echo "Deleting files older than 14 days : $files_to_delete"
 
-while read -r filepath
+
+FILES_TO_DELETE=$(find $SOURCE_DIR -name "*.log" -mtime +14)
+echo "Files to be deleted: $FILES_TO_DELETE"
+
+while read -r filepath # here filepath is the variable name, you can give any name
 do
-echo "Deleting file: $filepath"
-rm -rf $filepath
-done<<$files_to_delete
+    echo "Deleting file: $filepath" &>>$Logfilename
+    rm -rf $filepath
+    echo "Deleted file: $filepath"
+done <<< $FILES_TO_DELETE
