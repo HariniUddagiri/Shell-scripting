@@ -11,7 +11,7 @@ Y="\e[33m"
 Logfolder="var/log/expense-logs"
 timestamp=$(date +%Y-%m-%d-%H-%M-%S)
 Logfile=$(echo $0 | cut -d "." -f1)
-Logfilename="$Logfolder/$Logfile-$timestamp"
+Logfilename="$Logfolder/$Logfile-$timestamp.log"
 
 Check(){
     if [ $1 -ne 0 ]
