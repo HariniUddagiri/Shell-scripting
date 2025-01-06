@@ -31,6 +31,8 @@ CHECK_ROOT(){
 
 echo "Script started executing at: $TIMESTAMP" &>>$LOG_FILE_NAME
 
+mkdir -p $LOGS_FOLDER &>>$LOG_FILE_NAME
+
 CHECK_ROOT
 
 dnf module disable nodejs -y &>>$LOG_FILE_NAME
