@@ -1,77 +1,71 @@
 #!/bin/bash
 
-USER=$(id -u)
 
+USERID=$(id -u)
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
+N="\e[0m"
 
+LOGS_FOLDER="/var/log/expense-logs"
+LOG_FILE=$(echo $0 | cut -d "." -f1 )
+TIMESTAMP=$(date +%Y-%m-%d-%H-%M-%S)
+LOG_FILE_NAME="$LOGS_FOLDER/$LOG_FILE-$TIMESTAMP.log"
 
-
-Logfolder="var/log/expense-logs"
-timestamp=$(date +%Y-%m-%d-%H-%M-%S)
-Logfile=$(echo $0 | cut -d "." -f1)
-Logfilename="$Logfolder/$Logfile-$timestamp.log"
-
-Check(){
+VALIDATE(){
     if [ $1 -ne 0 ]
     then
-    echo -e "$R sudo access is needed"
-    exit 1
-    fi
-}
-Repeat (){
-   
-    if [ $1 -ne 0 ]
-    then
-    echo -e "$2..$R failure" 
-    exit 1
+        echo -e "$2 ... $R FAILURE $N"
+        exit 1
     else
-    echo -e "$2..$G success" 
+        echo -e "$2 ... $G SUCCESS $N"
     fi
-
 }
 
+CHECK_ROOT(){
+    if [ $USERID -ne 0 ]
+    then
+        echo "ERROR:: You must have sudo access to execute this script"
+        exit 1 #other than 0
+    fi
+}
 
-echo "Script started executing at $timestamp" &>>$Logfilename
+echo "Script started executing at: $TIMESTAMP" &>>$LOG_FILE_NAME
 
+CHECK_ROOT
 
+dnf module disable nodejs -y &>>$LOG_FILE_NAME
+VALIDATE $? "Disabling existing default NodeJS"
 
-Check $USER
+dnf module enable nodejs:20 -y &>>$LOG_FILE_NAME
+VALIDATE $? "Enabling NodeJS 20"
 
-dnf module disable nodejs -y &>>$Logfilename
-Repeat $? "Disabling nodejs"
+dnf install nodejs -y &>>$LOG_FILE_NAME
+VALIDATE $? "Installing NodeJS"
 
-dnf module enable nodejs:20 -y &>>$Logfilename
-Repeat $? "Enabling nodejs"
-
-dnf install nodejs -y &>>$Logfilename
-Repeat $? "Installing nodejs"
-
-
-id expense &>>$Logfilename
+id expense &>>$LOG_FILE_NAME
 if [ $? -ne 0 ]
 then
-    useradd expense &>>$Logfilename
-    Repeat $? "Adding expense user"
+    useradd expense &>>$LOG_FILE_NAME
+    VALIDATE $? "Adding expense user"
 else
     echo -e "expense user already exists ... $Y SKIPPING $N"
 fi
 
-mkdir -p /app &>>$Logfilename
-Repeat $? "Creating app directory"
+mkdir -p /app &>>$LOG_FILE_NAME
+VALIDATE $? "Creating app directory"
 
-curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip &>>$Logfilename
-Repeat $? "Downloading backend code"
+curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip &>>$LOG_FILE_NAME
+VALIDATE $? "Downloading backend"
 
 cd /app
 rm -rf /app/*
 
-unzip /tmp/backend.zip &>>$Logfilename
-Repeat $? "unzipping the code"
+unzip /tmp/backend.zip &>>$LOG_FILE_NAME
+VALIDATE $? "unzip backend"
 
-npm install &>>$Logfilename
-Repeat $? "Installing dependencies"
+npm install &>>$LOG_FILE_NAME
+VALIDATE $? "Installing dependencies"
 
 
 cp /home/ec2-user/Shell-scripting/expense-project/backend.service /etc/systemd/system/backend.service
