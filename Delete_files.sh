@@ -23,12 +23,12 @@ fi
 
 
 
-FILES_TO_DELETE=$(find $SOURCE_DIR -name "*.log" -mtime +0)
-echo "Files to be deleted: $FILES_TO_DELETE"
+files_to_delete=$(find $SOURCE_DIR -name "*.log" -mtime +5)
+echo "Files to be deleted: $files_to_delete"
 
 while read -r filepath # here filepath is the variable name, you can give any name
 do
     echo "Deleting file: $filepath" &>>$Logfilename
     rm -rf $filepath
     echo "Deleted file: $filepath"
-done <<< $FILES_TO_DELETE
+done <<< $files_to_delete
