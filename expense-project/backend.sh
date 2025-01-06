@@ -73,21 +73,21 @@ cp /home/ec2-user/Shell-scripting/expense-project/backend.service /etc/systemd/s
 
 # Prepare MySQL Schema
 
-dnf install mysql -y &>>$Logfilename
+dnf install mysql -y &>>$LOG_FILE_NAME
 Repeat $? "Installing Mysql"
 
 mysql -h mysq.daws82s.store -uroot -pExpenseApp@1 < /app/schema/backend.sql &>>$Logfilename
 Repeat $? "Setting up the transactions schema and tables"
 
 
-systemctl daemon-reload &>>$Logfilename
+systemctl daemon-reload &>>$LOG_FILE_NAME
 Repeat $? "Reload daemon"
 
 
-systemctl enable backend &>>$Logfilename
+systemctl enable backend &>>$LOG_FILE_NAME
 Repeat $? "Enabling the backend"
 
 
-systemctl restart backend &>>$Logfilename
+systemctl restart backend &>>$LOG_FILE_NAME
 Repeat $? "starting the backend"
 
