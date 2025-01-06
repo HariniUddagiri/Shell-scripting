@@ -62,6 +62,8 @@ Repeat $? "Downloading backend code"
 
 cd /app
 
+mkdir -p /tmp/backend.zip &>>$Logfilename
+Repeat $? "Making directory for unzip"
 unzip /tmp/backend.zip &>>$Logfilename
 Repeat $? "unzipping the code"
 
