@@ -35,7 +35,7 @@ Repeat (){
 
 }
 
-#mkdir -p $Logfolder &>>$Logfilename
+mkdir -p $Logfolder &>>$Logfilename
 echo "Script started executing at $timestamp" &>>$Logfilename
 
 
