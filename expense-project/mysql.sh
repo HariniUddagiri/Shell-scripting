@@ -44,10 +44,10 @@ echo "Script started executing at $timestamp" &>>$Logfilename
 Check $USER
 
 
-dnf list installed mysql
+dnf list installed mysql-server
 if [ $? -ne 0 ]
 then
-dnf install mysql -y &>>$Logfilename
+dnf install mysql-server -y &>>$Logfilename
 Repeat $? "Installing mysql" 
 else
 echo -e "$Y mysql $G already installed" 
