@@ -8,10 +8,10 @@ Y="\e[33m"
 
 
 
-Logfolder="var/log/expense-logs"
-timestamp=$(date +%Y-%m-%d-%H-%M-%S)
-Logfile=$(echo $0 | cut -d "." -f1)
-Logfilename="$Logfolder/$Logfile-$timestamp.log"
+LOGS_FOLDER="/var/log/expense-logs"
+LOG_FILE=$(echo $0 | cut -d "." -f1 )
+TIMESTAMP=$(date +%Y-%m-%d-%H-%M-%S)
+LOG_FILE_NAME="$LOGS_FOLDER/$LOG_FILE-$TIMESTAMP.log"
 
 Check(){
     if [ $1 -ne 0 ]
@@ -38,28 +38,29 @@ echo "Script started executing at $timestamp" &>>$Logfilename
 
 Check $USER
 
-dnf install nginx -y &>>$Logfilename
-Repeat $? "Installing nginx"
+dnf install nginx -y  &>>$LOG_FILE_NAME
+VALIDATE $? "Installing Nginx Server"
 
-systemctl enable nginx &>>$Logfilename
-Repeat $? "Enabling nginx"
+systemctl enable nginx &>>$LOG_FILE_NAME
+VALIDATE $? "Enabling Nginx server"
 
-systemctl start nginx &>>$Logfilename
-Repeat $? "Starting nginx"
+systemctl start nginx &>>$LOG_FILE_NAME
+VALIDATE $? "Starting Nginx Server"
 
-rm -rf /usr/share/nginx/html/* &>>$Logfilename
-Repeat $? "Removing existing version of code"
+rm -rf /usr/share/nginx/html/* &>>$LOG_FILE_NAME
+VALIDATE $? "Removing existing version of code"
 
-curl -o /tmp/frontend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-frontend-v2.zip &>>$Logfilename
-Repeat $? "Downloading Latest code"
+curl -o /tmp/frontend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-frontend-v2.zip &>>$LOG_FILE_NAME
+VALIDATE $? "Downloading Latest code"
 
-cd /usr/share/nginx/html &>>$Logfilename
-Repeat $? "Moving to HTML directory"
+cd /usr/share/nginx/html
+VALIDATE $? "Moving to HTML directory"
 
-unzip /tmp/frontend.zip &>>$Logfilename
-Repeat $? "unzipping the frontend code"
+unzip /tmp/frontend.zip &>>$LOG_FILE_NAME
+VALIDATE $? "unzipping the frontend code"
 
-cp /home/ec2-user/Shell-scripting/expense-project/expense.conf /etc/nginx/default.d/expense.conf &>>$Logfilename
+cp /home/ec2-user/Shell-scripting/expense-project/expense.conf /etc/nginx/default.d/expense.conf
+VALIDATE $? "Copied expense config"
 
-systemctl restart nginx &>>$Logfilename
-Repeat $? "Restarting"
+systemctl restart nginx &>>$LOG_FILE_NAME
+VALIDATE $? "Restarting nginx"
