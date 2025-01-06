@@ -56,7 +56,7 @@ cd /usr/share/nginx/html &>>$Logfilename
 Repeat $? "Extracting frontend content"
 
 unzip /tmp/frontend.zip &>>$Logfilename
-Repeat $? "Unzipping"
+Repeat $? "unzipping the frontend code"
 
 cp /home/ec2-user/Shell-scripting/expense-project/expense.conf /etc/nginx/default.d/expense.conf &>>$Logfilename
 
