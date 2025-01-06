@@ -25,11 +25,12 @@ Check(){
 
 
 Repeat (){
-    dnf install $package -y &>>$Logfilename
+   
     if [ $1 -ne 0 ]
     then
     echo -e "$2..$R failure" 
     else
+    exit 1
     echo -e "$2..$G success" 
     fi
 
@@ -43,13 +44,23 @@ echo "Script started executing at $timestamp" &>>$Logfilename
 Check $USER
 
 
-for package in $@
-do
-dnf list installed $package &>>$Logfilename
+dnf list installed mysql
 if [ $? -ne 0 ]
 then
-Repeat $? "Installing $package" 
+dnf install mysql -y &>>$Logfilename
+Repeat $? "Installing mysql" 
 else
-echo -e "$Y $package $G already installed" 
+echo -e "$Y mysql $G already installed" 
 fi
-done
+
+systemctl enable mysqld &>>$Logfilename
+Repeat $? "Enabling sql server"
+
+systemctl start mysqld &>>$Logfilename
+Repeat $? "Starting sql server"
+
+mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$Logfilename
+Repeat $? "Setting password"
+
+
+
