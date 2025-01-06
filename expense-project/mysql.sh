@@ -56,7 +56,7 @@ systemctl start mysqld &>>$Logfilename
 Repeat $? "Starting sql server"
 
 mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$Logfilename
-Repeat $? "Setting password"
+
 
 
 
