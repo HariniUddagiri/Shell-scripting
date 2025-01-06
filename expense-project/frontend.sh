@@ -32,9 +32,9 @@ Repeat (){
 
 }
 
-
-echo "Script started executing at $timestamp" &>>$Log_filename
 mkdir -p $Log_folder
+echo "Script started executing at $timestamp" &>>$Log_filename
+
 
 Check $USER
 
@@ -53,7 +53,7 @@ Repeat $? "Removing default content"
 curl -o /tmp/frontend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-frontend-v2.zip &>>$Log_filename
 Repeat $? "Downloading frontend content"
 
-cd /usr/share/nginx/html &>>$Log_filename
+cd /usr/share/nginx/html 
 Repeat $? "Extracting frontend content"
 
 unzip /tmp/frontend.zip &>>$Log_filename
