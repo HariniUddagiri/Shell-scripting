@@ -55,7 +55,17 @@ Repeat $? "Enabling sql server"
 systemctl start mysqld &>>$Logfilename
 Repeat $? "Starting sql server"
 
-mysql_secure_installation --set-root-pass ExpenseApp@1 
+mysql -h mysql.daws82s.online -u root -pExpenseApp@1 -e 'show databases;' &>>$Logfilename
+
+if [ $? -ne 0 ]
+then
+    echo "MySQL Root password not setup" &>>$Logfilename
+    mysql_secure_installation --set-root-pass ExpenseApp@1
+    VALIDATE $? "Setting Root Password"
+else
+    echo -e "MySQL Root password already setup ... $Y SKIPPING $N"
+fi
+
 
 
 
