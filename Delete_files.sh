@@ -10,7 +10,7 @@ timestamp=$(date +%Y-%m-%d-%H-%M-%S)
 logfile=$(echo $0 | cut -d "." -f1)
 Logfilename="$logfolder/$logfile-$timestamp.log"
 
-SOURCE_DIR ="/home/ec2-user/app-logs"
+SOURCE_DIR="/home/ec2-user/app-logs"
 
 mkdir -p $logfolder
 
