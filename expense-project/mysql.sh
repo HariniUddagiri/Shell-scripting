@@ -12,9 +12,9 @@ Logfile=$(echo $0 | cut -d "." -f1)
 Logfilename="$Logfolder/$Logfile-$timestamp"
 
 Check(){
-    if [ $USER -ne 0 ]
+    if [ $1 -ne 0 ]
     then
-    echo "sudo access is needed"
+    echo -e "$R sudo access is needed"
     exit 1
     fi
 }
@@ -23,28 +23,28 @@ Check(){
 
 
 Repeat (){
-    dnf install mysql
+    dnf install mysql &>>$Logfilename
     if [ $1 -ne 0 ]
     then
-    echo "$2..failure"
+    echo -e "$2..$R failure" 
     else
-    echo "$2..success"
+    echo -e "$2..$G success" 
     fi
 
 }
 
-echo "Script started executing at $timestamp"
+echo "Script started executing at $timestamp" &>>$Logfilename
 
-Check
+Check $USER
 
 
 for package in $@
 do
-dnf list installed $package
+dnf list installed $package &>>$Logfilename
 if [ $? -ne 0 ]
 then
-Repeat $? "Inatalling $package"
+Repeat $? "Installing $package" 
 else
-echo "$package already installed"
+echo -e "$package $G already installed" 
 fi
 done
