@@ -23,7 +23,7 @@ fi
 
 
 
-FILES_TO_DELETE=$(find $SOURCE_DIR -name "*.log" -mtime +14)
+FILES_TO_DELETE=$(find $SOURCE_DIR -name "*.log" -mtime +0)
 echo "Files to be deleted: $FILES_TO_DELETE"
 
 while read -r filepath # here filepath is the variable name, you can give any name
