@@ -48,14 +48,13 @@ systemctl start nginx &>>$Logfilename
 Repeat $? "Starting nginx"
 
 rm -rf /usr/share/nginx/html/* &>>$Logfilename
-VALIDATE $? "Removing existing version of code"
-
+Repeat $? "Removing existing version of code"
 
 curl -o /tmp/frontend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-frontend-v2.zip &>>$Logfilename
-Repeat $? "Downloading frontend content"
+Repeat $? "Downloading Latest code"
 
 cd /usr/share/nginx/html &>>$Logfilename
-Repeat $? "Extracting frontend content"
+Repeat $? "Moving to HTML directory"
 
 unzip /tmp/frontend.zip &>>$Logfilename
 Repeat $? "unzipping the frontend code"
