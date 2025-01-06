@@ -27,4 +27,5 @@ echo "Deleting files older than 14 days : $files_to_delete"
 while read -r filepath
 do
 echo "Deleting file: $filepath"
+rm -rf $filepath
 done<<$files_to_delete
