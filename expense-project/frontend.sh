@@ -1,62 +1,66 @@
 #!/bin/bash
 
-USERID=$(id -u)
+USER=$(id -u)
+
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
-N="\e[0m"
 
-LOGS_FOLDER="/var/log/expense-logs"
-LOG_FILE=$(echo $0 | cut -d "." -f1 )
-TIMESTAMP=$(date +%Y-%m-%d-%H-%M-%S)
-LOG_FILE_NAME="$LOGS_FOLDER/$LOG_FILE-$TIMESTAMP.log"
 
-VALIDATE(){
+
+Logfolder="var/log/expense-logs"
+timestamp=$(date +%Y-%m-%d-%H-%M-%S)
+Logfile=$(echo $0 | cut -d "." -f1)
+Logfilename="$Logfolder/$Logfile-$timestamp.log"
+
+Check(){
     if [ $1 -ne 0 ]
     then
-        echo -e "$2 ... $R FAILURE $N"
-        exit 1
-    else
-        echo -e "$2 ... $G SUCCESS $N"
+    echo -e "$R sudo access is needed"
+    exit 1
     fi
 }
-
-CHECK_ROOT(){
-    if [ $USERID -ne 0 ]
+Repeat (){
+   
+    if [ $1 -ne 0 ]
     then
-        echo "ERROR:: You must have sudo access to execute this script"
-        exit 1 #other than 0
+    echo -e "$2..$R failure" 
+    exit 1
+    else
+    echo -e "$2..$G success" 
     fi
+
 }
 
-mkdir -p $LOGS_FOLDER
-echo "Script started executing at: $TIMESTAMP" &>>$LOG_FILE_NAME
 
-CHECK_ROOT
+mkdir -p $Logfolder
+echo "Script started executing at $timestamp" &>>$Logfilename
 
-dnf install nginx -y  &>>$LOG_FILE_NAME
-VALIDATE $? "Installing Nginx Server"
+Check $USER
 
-systemctl enable nginx &>>$LOG_FILE_NAME
-VALIDATE $? "Enabling Nginx server"
+dnf install nginx -y &>>$Logfilename
+Repeat $? "Installing nginx"
 
-systemctl start nginx &>>$LOG_FILE_NAME
-VALIDATE $? "Starting Nginx Server"
+systemctl enable nginx &>>$Logfilename
+Repeat $? "Enabling nginx"
 
-rm -rf /usr/share/nginx/html/* &>>$LOG_FILE_NAME
+systemctl start nginx &>>$Logfilename
+Repeat $? "Starting nginx"
+
+rm -rf /usr/share/nginx/html/* &>>$Logfilename
 VALIDATE $? "Removing existing version of code"
 
-curl -o /tmp/frontend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-frontend-v2.zip &>>$LOG_FILE_NAME
-VALIDATE $? "Downloading Latest code"
 
-cd /usr/share/nginx/html
-VALIDATE $? "Moving to HTML directory"
+curl -o /tmp/frontend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-frontend-v2.zip &>>$Logfilename
+Repeat $? "Downloading frontend content"
 
-unzip /tmp/frontend.zip &>>$LOG_FILE_NAME
-VALIDATE $? "unzipping the frontend code"
+cd /usr/share/nginx/html &>>$Logfilename
+Repeat $? "Extracting frontend content"
 
-cp /home/ec2-user/Shell-scripting/expense-project/expense.conf /etc/nginx/default.d/expense.conf
-VALIDATE $? "Copied expense config"
+unzip /tmp/frontend.zip &>>$Logfilename
+Repeat $? "unzipping the frontend code"
 
-systemctl restart nginx &>>$LOG_FILE_NAME
-VALIDATE $? "Restarting nginx"
+cp /home/ec2-user/Shell-scripting/expense-project/expense.conf /etc/nginx/default.d/expense.conf &>>$Logfilename
+
+systemctl restart nginx &>>$Logfilename
+Repeat $? "Restarting"
