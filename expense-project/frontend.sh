@@ -20,7 +20,7 @@ Check(){
     exit 1
     fi
 }
-Repeat (){
+VALIDATE (){
    
     if [ $1 -ne 0 ]
     then
@@ -33,7 +33,7 @@ Repeat (){
 }
 
 
-mkdir -p $Logfolder
+mkdir -p $LOGS_FOLDER
 echo "Script started executing at $timestamp" &>>$Logfilename
 
 Check $USER
