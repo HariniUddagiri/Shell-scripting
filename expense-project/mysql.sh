@@ -50,6 +50,6 @@ if [ $? -ne 0 ]
 then
 Repeat $? "Installing $package" 
 else
-echo -e "$package $G already installed" 
+echo -e "$Y $package $G already installed" 
 fi
 done
