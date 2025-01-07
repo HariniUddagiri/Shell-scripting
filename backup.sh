@@ -14,7 +14,7 @@ echo "Script started excecuting at $Timestamp"
 
 SDIR=$1
 DDIR=$2
-Days={$3:-14}
+Days=${3:-14}
 
 
 
