@@ -18,7 +18,7 @@ Days={$3:-14}
 
 if [ $# -lt 2 ]
 then 
-    Usage
+    Usage $?
 fi
 
 
