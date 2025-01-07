@@ -11,7 +11,7 @@ if [ $Usage -ge $Disk_threshold ]
 then
 msg="High disk usage on partition:$partition, Usage:$Usage"
 fi
-done >>> $Disk_space
+done <<< $Disk_space
 
 echo $msg
 
