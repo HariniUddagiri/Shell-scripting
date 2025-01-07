@@ -38,7 +38,7 @@ fi
 
 if [ ! -d $2  ]
 then
-echo -e "$R Source-directory does not exist"
+echo -e "$R Destination-directory does not exist"
 exit 1
 fi
 
