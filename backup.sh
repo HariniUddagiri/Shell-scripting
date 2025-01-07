@@ -47,8 +47,23 @@ Files=$(find $1 -name "*log" -mtime +$Days)
 if [ -n $Files ]
 then
 echo "Files are: $Files"
+Zip_file= "$$2/app-logs-$Timestamp.zip"
+find $1 -name "*log" -mtime +$Days | zip -@ "$Zip_file"
+if [ -f "$Zip_file" ]
+then 
+echo -e "$G Successfully created zip file"
+while read -r filepath
+do
+echo "Deleting files after zipping"
+rm -rf $filepath
+echo "Deleted file: $filepath"
+done>>$Files
 else
-echo "No files found older than $3"
+echo -e "$R Error:: $N Failed to create ZIP file "
+exit 1
+fi
+else
+echo "No files found older than $Days"
 fi
 
 
