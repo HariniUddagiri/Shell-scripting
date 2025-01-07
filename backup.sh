@@ -18,12 +18,13 @@ Days={$3:-14}
 
 if [ $# -lt 2 ]
 then 
-    Usage $?
+    USAGE
 fi
 
 
-Usage(){
-    echo -e "$R please pass the source & destination directories like : $Y sh backup.sh <Source_dir> <Destination_dir> <Days(optional)"
+USAGE(){
+    echo -e "$R USAGE:: $N sh 18-backup.sh <SOURCE_DIR> <DEST_DIR> <DAYS(Optional)>"
+    #echo -e "$R USAGE:: $N backup <SOURCE_DIR> <DEST_DIR> <DAYS(Optional)>"
     exit 1
 }
 
