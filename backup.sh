@@ -6,7 +6,7 @@ Y="\e[33m"
 N="\e[0m"
 
 Log_folder="/home/ec2-user/Shell-scripting"
-Log_file=$(echo $0 | cut -d "." -f1)
+Log_file=$(echo $0 | awk -F "/" '{print $NF}' | cut -d "." -f1)
 Timestamp=$(date +%Y-%m-%d-%H-%M-%S)
 Log_file_name="$Log_folder/$Log_file-$Timestamp.log"
 
