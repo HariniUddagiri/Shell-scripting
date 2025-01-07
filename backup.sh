@@ -42,7 +42,7 @@ echo -e "$R Destination-directory does not exist"
 exit 1
 fi
 
-Files=$(find $1 -name "*log" -mtime +$3)
+Files=$(find $1 -name "*log" -mtime +$Days)
 
 if [ -n $Files ]
 then
