@@ -27,28 +27,30 @@ Usage(){
     exit 1
 }
 
+mkdir -p var/log/Shell-scripting
+
 if [ $# -lt 2 ]
 then 
     Usage
 fi
 
 
-if [ ! -d $SDIR  ]
+if [ ! -d "$SDIR"  ]
 then
 echo -e "$R Source-directory does not exist"
 exit 1
 fi
 
-if [ ! -d $DDIR ]
+if [ ! -d "$DDIR" ]
 then
 echo -e "$R Destination-directory does not exist"
 exit 1
 fi
 
-mkdir -p "$Log_folder"
+
 
 echo "Script started excecuting at $Timestamp"
-Files=$(find $SDIR -name ".*log" -mtime +$Days)
+Files=$(find $SDIR -name "*.log" -mtime +$Days)
 
 if [ -n "$Files" ]
 then
