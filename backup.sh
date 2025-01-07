@@ -5,7 +5,7 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 
-Log_folder="var/log/Shell-scripting"
+Log_folder="/home/ec2-user/Shell-scripting"
 Log_file=$(echo $0 | cut -d "." -f1)
 Timestamp=$(date +%Y-%m-%d-%H-%M-%S)
 Log_file_name="$Log_folder/$Log_file-$Timestamp.log"
@@ -27,7 +27,7 @@ Usage(){
     exit 1
 }
 
-mkdir -p var/log/Shell-scripting
+mkdir -p /home/ec2-user/Shell-scripting
 
 if [ $# -lt 2 ]
 then 
