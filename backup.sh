@@ -42,4 +42,15 @@ echo -e "$R Destination-directory does not exist"
 exit 1
 fi
 
+Files=$(find $1 -name "*log" -mtime +14)
+
+if [ ! -n $Files ]
+then
+echo "No files to delete"
+exit 1
+else
+echo "Files to delete : $Files"
+fi
+
+
 
