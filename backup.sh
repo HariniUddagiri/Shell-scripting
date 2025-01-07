@@ -42,14 +42,13 @@ echo -e "$R Destination-directory does not exist"
 exit 1
 fi
 
-Files=$(find $1 -name "*log" -mtime +14)
+Files=$(find $1 -name "*log" -mtime +$3)
 
-if [ ! -n $Files ]
+if [ -n $Files ]
 then
-echo "No files to delete"
-exit 1
+echo "Files are: $Files"
 else
-echo "Files to delete : $Files"
+echo "No files found older than $3"
 fi
 
 
