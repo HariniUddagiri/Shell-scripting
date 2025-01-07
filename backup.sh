@@ -1,5 +1,10 @@
 #!/bin/bash
 
+R="\e[31m"
+G="\e[32m"
+Y="\e[33m"
+N="\e[0m"
+
 Log_folder="var/log/Shell-scripting"
 Log_file=$(echo $0 | cut -d "." -f1)
 Timestamp=$(date +%Y-%m-%d-%H-%M-%S)
@@ -30,34 +35,34 @@ then
 fi
 
 
-if [ ! -d $1  ]
+if [ ! -d $SDIR  ]
 then
 echo -e "$R Source-directory does not exist"
 exit 1
 fi
 
-if [ ! -d $2  ]
+if [ ! -d $DDIR ]
 then
 echo -e "$R Destination-directory does not exist"
 exit 1
 fi
 
-Files=$(find $1 -name "*log" -mtime +$Days)
+Files=$(find $SDIR -name ".*log" -mtime +$Days)
 
-if [ -n $Files ]
+if [ -n "$Files" ]
 then
 echo "Files are: $Files"
 Zip_file= "$DDIR/app-logs-$Timestamp.zip"
-find $1 -name "*log" -mtime +$Days | zip -@ "$Zip_file"
+find $SDIR -name "*.log" -mtime +$Days | zip -@ $Zip_file
 if [ -f "$Zip_file" ]
 then 
 echo -e "$G Successfully created zip file"
 while read -r filepath
 do
-echo "Deleting files after zipping"
-rm -rf $filepath
-echo "Deleted file: $filepath"
-done>>$Files
+    echo "Deleting files after zipping"
+    rm -rf $filepath
+    echo "Deleted file: $filepath"
+done <<< $Files
 else
 echo -e "$R Error:: $N Failed to create ZIP file "
 exit 1
