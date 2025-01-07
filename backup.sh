@@ -16,10 +16,6 @@ SDIR=$1
 DDIR=$2
 Days={$3:-14}
 
-if [ $# -lt 2 ]
-then 
-    USAGE
-fi
 
 
 USAGE(){
@@ -27,6 +23,12 @@ USAGE(){
     #echo -e "$R USAGE:: $N backup <SOURCE_DIR> <DEST_DIR> <DAYS(Optional)>"
     exit 1
 }
+
+if [ $# -lt 2 ]
+then 
+    USAGE
+fi
+
 
 if [ ! -d $1  ]
 then
