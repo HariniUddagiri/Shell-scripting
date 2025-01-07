@@ -18,7 +18,7 @@ Days={$3:-14}
 
 
 
-USAGE(){
+Usage(){
     echo -e "$R USAGE:: $N sh 18-backup.sh <SOURCE_DIR> <DEST_DIR> <DAYS(Optional)>"
     #echo -e "$R USAGE:: $N backup <SOURCE_DIR> <DEST_DIR> <DAYS(Optional)>"
     exit 1
@@ -26,7 +26,7 @@ USAGE(){
 
 if [ $# -lt 2 ]
 then 
-    USAGE
+    Usage
 fi
 
 
