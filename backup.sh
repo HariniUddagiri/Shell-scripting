@@ -47,7 +47,7 @@ Files=$(find $1 -name "*log" -mtime +$Days)
 if [ -n $Files ]
 then
 echo "Files are: $Files"
-Zip_file= "$$2/app-logs-$Timestamp.zip"
+Zip_file= "$DDIR/app-logs-$Timestamp.zip"
 find $1 -name "*log" -mtime +$Days | zip -@ "$Zip_file"
 if [ -f "$Zip_file" ]
 then 
