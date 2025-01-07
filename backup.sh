@@ -10,9 +10,7 @@ Log_file=$(echo $0 | cut -d "." -f1)
 Timestamp=$(date +%Y-%m-%d-%H-%M-%S)
 Log_file_name="$Log_folder/$Log_file-$Timestamp.log"
 
-mkdir -p "$Log_folder"
 
-echo "Script started excecuting at $Timestamp"
 
 #SDIR="/home/ec2-user/app-logs"
 #DDIR="/home/ec2-user/archive"
@@ -47,13 +45,16 @@ echo -e "$R Destination-directory does not exist"
 exit 1
 fi
 
+mkdir -p "$Log_folder"
+
+echo "Script started excecuting at $Timestamp"
 Files=$(find $SDIR -name ".*log" -mtime +$Days)
 
 if [ -n "$Files" ]
 then
 echo "Files are: $Files"
-Zip_file= "$DDIR/app-logs-$Timestamp.zip"
-find $SDIR -name "*.log" -mtime +$Days | zip -@ $Zip_file
+Zip_file="$DDIR/app-logs-$Timestamp.zip"
+find $SDIR -name "*.log" -mtime +$Days | zip -@ "$Zip_file"
 if [ -f "$Zip_file" ]
 then 
 echo -e "$G Successfully created zip file"
