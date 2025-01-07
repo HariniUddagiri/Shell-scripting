@@ -49,7 +49,7 @@ fi
 
 
 
-echo "Script started excecuting at $Timestamp" &>>$Log_file_name
+echo "Script started excecuting at $Timestamp" 
 Files=$(find $SDIR -name "*.log" -mtime +$Days)
 
 if [ -n "$Files" ]
@@ -62,7 +62,7 @@ then
 echo -e "$G Successfully created zip file"
 while read -r filepath
 do
-    echo "Deleting files after zipping" &>>$Log_file_name
+    echo "Deleting files after zipping" 
     rm -rf $filepath
     echo "Deleted file: $filepath"
 done <<< $Files
