@@ -5,7 +5,7 @@ A="10"
 GREET="Hi from SCRIPT-2"
 
 
-source ./script1.sh
+#source ./script1.sh
 
 echo "Hello from: $MSG"
 
