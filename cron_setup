@@ -1,3 +1,4 @@
-PATH=/usr/bin:/bin:/usr/local/bin
+PATH=/usr/bin:/bin:/usr/local/bin # as cron tab is searching only in this path "/usr/bin:/bin" by default, 
+#we are adding  the path so that cron can check /usr/local/bin also where our customised command i spresent.
 * * * * * backup /home/ec2-user/app-logs /home/ec2-user/archive
-#* * * * * echo $PATH #shows which path crontab is checking 
+#* * * * * echo $PATH #shows which path crontab is searching by default 
